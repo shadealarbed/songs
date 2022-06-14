@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:audioplayers/audioplayers.dart';
 //import 'package:audioplayers/web/audioplayers_web.dart';
 
 import 'package:flutter/material.dart';
+
+import 'albumart.dart';
+import 'package:http/http.dart' as http;
 //import 'package:just_audio/just_audio.dart';
 
 class MyAudio extends ChangeNotifier{
@@ -38,8 +43,12 @@ class MyAudio extends ChangeNotifier{
     });
   }
 
-  playAudio() {
-    audioPlayer.play('https://thegrowingdeveloper.org/files/audios/quiet-time.mp3?b4869097e4');
+  Future playAudio() async {
+    final player = AudioCache(prefix: "assets/sf2/");
+    final url = await player.load("romance.mp3");
+    await audioPlayer.setUrl(url.path,isLocal: true);
+    await audioPlayer.play(url.path,isLocal: true);
+
   }
 
 

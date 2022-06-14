@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:ui';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:senior_demo/audioPlayerPage/albumart.dart';
 import 'package:senior_demo/audioPlayerPage/myaudio.dart';
 
 import 'colors.dart';
@@ -15,7 +18,7 @@ class PlayerControls extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
           child: Container(
             height: 120,
-            width: MediaQuery.of(context).size.width -10,
+            width: MediaQuery.of(context).size.width - 10,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: Colors.black26,
@@ -45,15 +48,22 @@ class PlayerControls extends StatelessWidget {
   }
 }
 
-class PlayControl extends StatelessWidget {
+class PlayControl extends StatefulWidget {
+  @override
+  State<PlayControl> createState() => _PlayControlState();
+}
+
+class _PlayControlState extends State<PlayControl> {
   @override
   Widget build(BuildContext context) {
     return Consumer<MyAudio>(
       builder: (_, myAudioModel, child) => GestureDetector(
-        onTap: () {
-          myAudioModel.audioState == "Playing"
-              ? myAudioModel.pauseAudio()
-              : myAudioModel.playAudio();
+        onTap: () async {
+          if (myAudioModel.audioState == "Playing")
+            myAudioModel.pauseAudio();
+          else {
+            myAudioModel.playAudio();
+          }
         },
         child: Container(
           height: 100,
@@ -68,15 +78,16 @@ class PlayControl extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: Color(0xff550062),
-                    shape: BoxShape.circle,
-                    boxShadow: [BoxShadow(
-                      color: Colors.white.withOpacity(0.5),
-                      offset: const Offset(4, 4),
-                      blurRadius: 15,
-                      spreadRadius: 1,
-                    )]
-                  ),
+                      color: Color(0xff701a75),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.white.withOpacity(0.5),
+                          offset: const Offset(4, 4),
+                          blurRadius: 15,
+                          spreadRadius: 1,
+                        )
+                      ]),
                 ),
               ),
               Center(

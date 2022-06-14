@@ -1,10 +1,16 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:senior_demo/audioPlayerPage/albumart.dart';
 import 'package:senior_demo/pages/ResultPage.dart';
 import 'package:senior_demo/pages/generate_song/MoodSongs.dart';
+import 'package:http/http.dart' as http;
+
+late String Text1 = "";
+late String Imagee = "";
 
 class ChooseGenre extends StatefulWidget {
   static final id = "ChooseGenre";
@@ -23,6 +29,16 @@ class _ChooseGenreState extends State<ChooseGenre>
   late double posright;
 
   late AnimationController _controller;
+
+  final _formkey = GlobalKey<FormState>();
+
+  Future<void> _savingData() async {
+    final validation = await _formkey.currentState!.validate();
+    if (!validation) {
+      return;
+    }
+    _formkey.currentState!.save();
+  }
 
   @override
   void initState() {
@@ -88,7 +104,6 @@ class _ChooseGenreState extends State<ChooseGenre>
                       _isalvated[0]
                           ? _controller.forward()
                           : _controller.reverse();
-
                     });
                   },
                   clipBehavior: Clip.antiAlias,
@@ -136,6 +151,7 @@ class _ChooseGenreState extends State<ChooseGenre>
                               ? customDescription(
                                   controller: _controller,
                                   type: "happy",
+                                  img: "happy.jpg",
                                   description:
                                       "Feeling happy\n and you want stop\n Here We Have A Good Song\n Waiting For You",
                                 )
@@ -207,8 +223,10 @@ class _ChooseGenreState extends State<ChooseGenre>
                           _isalvated[1]
                               ? customDescription(
                                   controller: _controller,
-                                  type: "sadness",
-                                  description: "You Feel Stressed \n and You Want Something \n To Cure Your Soul")
+                                  type: "sad",
+                                  img: "sad.jpg",
+                                  description:
+                                      "You Feel Stressed \n and You Want Something \n To Cure Your Soul")
                               : Container()
                         ]),
                         height: 200,
@@ -277,9 +295,10 @@ class _ChooseGenreState extends State<ChooseGenre>
                           _isalvated[2]
                               ? customDescription(
                                   controller: _controller,
-                                  type: "love",
-                                  description:"You Are In Love \n And You Cant Explain \n That Warm Feelings"
-                                )
+                                  type: "romance",
+                                  img: "romance.jpg",
+                                  description:
+                                      "You Are In Love \n And You Cant Explain \n That Warm Feelings")
                               : Container()
                         ]),
                         height: 200,
@@ -348,9 +367,10 @@ class _ChooseGenreState extends State<ChooseGenre>
                           _isalvated[3]
                               ? customDescription(
                                   controller: _controller,
-                                  type: "excited",
-                                  description: "You Feel Excited \n And You Want Something \n That Would Rock Your Day"
-                                )
+                                  type: "advanture",
+                                  img: "adv1.png",
+                                  description:
+                                      "You Feel Excited \n And You Want Something \n That Would Rock Your Day")
                               : Container()
                         ]),
                         height: 200,
@@ -390,7 +410,7 @@ class _ChooseGenreState extends State<ChooseGenre>
                               children: [
                                 Container(
                                   child: Image.asset(
-                                    'emotions/dreams.png',
+                                    'emotions/angry1.png',
                                     width: 100,
                                     height: 100,
                                   ),
@@ -419,9 +439,10 @@ class _ChooseGenreState extends State<ChooseGenre>
                           _isalvated[4]
                               ? customDescription(
                                   controller: _controller,
-                                  type: "dreams",
-                                  description: "You Feel Sleepy \n And You Cant Hold  \n Those Dreams You Want To \n Make True "
-                                )
+                                  type: "Angry",
+                                  img: "angry.jpg",
+                                  description:
+                                      "You Feel Sleepy \n And You Cant Hold  \n Those Dreams You Want To \n Make True ")
                               : Container()
                         ]),
                         height: 200,
@@ -461,7 +482,7 @@ class _ChooseGenreState extends State<ChooseGenre>
                               children: [
                                 Container(
                                   child: Image.asset(
-                                    'emotions/winner.png',
+                                    'emotions/calm.png',
                                     width: 100,
                                     height: 100,
                                   ),
@@ -481,7 +502,7 @@ class _ChooseGenreState extends State<ChooseGenre>
                                   height: 10,
                                 ),
                                 Text(
-                                  "Winning",
+                                  "Relaxing",
                                   style: TextStyle(color: Color(0xffff8700)),
                                 )
                               ],
@@ -490,9 +511,10 @@ class _ChooseGenreState extends State<ChooseGenre>
                           _isalvated[5]
                               ? customDescription(
                                   controller: _controller,
-                                  type: "winning",
-                                  description:"You Just Won Something \n And You Want To Taste \n What Is It Like To Be \n Successful!!"
-                                )
+                                  type: "relax",
+                                  img: "relax.jpg",
+                                  description:
+                                      "You Just Won Something \n And You Want To Taste \n What Is It Like To Be \n Successful!!")
                               : Container()
                         ]),
                         height: 200,
@@ -508,10 +530,22 @@ class _ChooseGenreState extends State<ChooseGenre>
                   height: 30,
                 ),
                 FlatButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, ResultPage.id);
+                    onPressed: () async {
+                      // _savingData();
+                      // final response = await http.post(
+                      //     (Uri.parse("http://192.168.56.1:7890/lyrics")),
+                      //     body: json.encode({'feelings' : "relax"}));
+                      //sending a post request to the url
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResultPage(
+                                    motion: Text1,
+                                    img: Imagee,
+                                  )));
                     },
                     child: Container(
+                      key: _formkey,
                       child: Text(
                         'See Result',
                         style: TextStyle(
@@ -533,17 +567,19 @@ class _ChooseGenreState extends State<ChooseGenre>
 }
 
 class customDescription extends StatelessWidget {
-  const customDescription({
+  customDescription({
     Key? key,
     required AnimationController controller,
     required this.description,
     required this.type,
+    required this.img,
   })  : _controller = controller,
         super(key: key);
 
   final AnimationController _controller;
   final String description;
-  final String type;
+  String type;
+  String img;
 
   @override
   Widget build(BuildContext context) {
@@ -588,7 +624,10 @@ class customDescription extends StatelessWidget {
                             'Choose :)',
                             style: TextStyle(color: Color(0xffff8700)),
                           ),
-                          CustomeSelected(),
+                          CustomeSelected(
+                            text: type,
+                            img: img,
+                          ),
                         ],
                       ),
                     ),
@@ -602,7 +641,10 @@ class customDescription extends StatelessWidget {
 }
 
 class CustomeSelected extends StatefulWidget {
-  const CustomeSelected({Key? key}) : super(key: key);
+  CustomeSelected({required this.text, required this.img});
+
+  String text;
+  String img;
 
   @override
   _CustomeSelectedState createState() => _CustomeSelectedState();
@@ -611,16 +653,36 @@ class CustomeSelected extends StatefulWidget {
 class _CustomeSelectedState extends State<CustomeSelected> {
   bool isSelected = false;
 
+  // final _formkey = GlobalKey<FormState>();
+  //
+  // Future<void> _savingData() async{
+  //   final validation = await _formkey.currentState!.validate();
+  //   if (!validation){
+  //     return;
+  //   }
+  //   _formkey.currentState!.save();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      //key: _formkey,
       child: IconButton(
-        onPressed: () {
+        onPressed: () async {
+          //sending a post request to the url
+          //_savingData();
+          final response = await http.post(
+              (Uri.parse("http://169.254.209.151:7890/lyrics")),
+              body: json.encode({'feelings': widget.text}));
           setState(() {
             isSelected = !isSelected;
-
-            ///send to the server
+            print(response.body);
+            print(widget.text);
+            Text1 = widget.text;
+            Imagee = widget.img;
           });
+
+          ///send to the server
         },
         icon: isSelected
             ? Icon(Icons.check_circle)

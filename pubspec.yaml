@@ -42,6 +42,7 @@ dependencies:
 
 
 
+
   #just_audio:
 #  google_fonts:
 
@@ -73,7 +74,10 @@ flutter:
     - images/
     - logos/
     - emotions/
-  #   - images/a_dot_burr.jpeg
+    - assets/sf2/
+
+
+        #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

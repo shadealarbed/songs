@@ -10,6 +10,7 @@ import 'package:senior_demo/audioPlayerPage/myaudio.dart';
 import 'package:senior_demo/audioPlayerPage/navbar.dart';
 import 'package:senior_demo/audioPlayerPage/playerControls.dart';
 import 'package:http/http.dart' as http;
+import 'package:senior_demo/pages/choosegenre.dart';
 import 'package:senior_demo/utils/data.dart';
 //import 'package:just_audio/just_audio.dart';
 
@@ -17,8 +18,10 @@ import 'package:senior_demo/utils/data.dart';
 
 class ResultPage extends StatefulWidget {
   static final id = "ResultPage";
+  String motion;
+  String img;
 
-  const ResultPage({Key? key}) : super(key: key);
+  ResultPage({Key? key,required this.motion,required this.img}) : super(key: key);
 
   @override
   _ResultPageState createState() => _ResultPageState();
@@ -32,9 +35,9 @@ class _ResultPageState extends State<ResultPage> {
 
   Map audioData = {
     'image':
-        'https://thegrowingdeveloper.org/thumbs/1000x1000r/audios/quiet-time-photo.jpg',
+    'https://thegrowingdeveloper.org/thumbs/1000x1000r/audios/quiet-time-photo.jpg',
     'url':
-        'https://thegrowingdeveloper.org/files/audios/quiet-time.mp3?b4869097e4'
+    'https://thegrowingdeveloper.org/files/audios/quiet-time.mp3?b4869097e4'
   };
 
   // AudioCache audioCache = AudioCache();
@@ -64,91 +67,85 @@ class _ResultPageState extends State<ResultPage> {
                   stops: [0.5, 1],
                   tileMode: TileMode.mirror)),
           child: ListView(
-            children: [Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 25,top: 20),
-                  height: height / 2.5,
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return AlbumArt();
-                    },
-                    itemCount: 1,
-                    scrollDirection: Axis.horizontal,
+              children: [Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 25,top: 20),
+                    height: height / 2.5,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return AlbumArt(img: widget.img);
+                      },
+                      itemCount: 1,
+                      scrollDirection: Axis.horizontal,
+                    ),
                   ),
-                ),
-                Text(
-                  'Evantualy',
-                  style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w500,
-                      color: darkPrimaryColor),
-                ),
-                Text(
-                  'Tame Impala',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                      color: darkPrimaryColor),
-                ),
-                SizedBox(height: 90,),
-                Column(
-                  children: [
-                    SliderTheme(
-                      data: SliderThemeData(
-                          trackHeight: 5,
-                          thumbShape:
-                              RoundSliderThumbShape(enabledThumbRadius: 5)),
-                      child: Consumer<MyAudio>(
-                        builder: (_, myAudioModel, child) => Slider(
-                          value: myAudioModel.position == null
-                              ? 0
-                              : myAudioModel.position!.inMilliseconds
-                                  .toDouble(),
-                          activeColor: darkPrimaryColor,
-                          inactiveColor: darkPrimaryColor.withOpacity(0.3),
-                          onChanged: (value) {
-                            myAudioModel.seekAudio(
-                                Duration(milliseconds: value.toInt()));
-                          },
-                          min: 0,
-                          max: myAudioModel.totalDuration == null
-                              ? 20
-                              : myAudioModel.totalDuration!.inMilliseconds
-                                  .toDouble(),
+                  SizedBox(height: 30,),
+                  Text(
+                    widget.motion,
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500,
+                        color: primaryColor),
+                  ),
+                  SizedBox(height: 80,),
+                  Column(
+                    children: [
+                      SliderTheme(
+                        data: SliderThemeData(
+                            trackHeight: 5,
+                            thumbShape:
+                            RoundSliderThumbShape(enabledThumbRadius: 5)),
+                        child: Consumer<MyAudio>(
+                          builder: (_, myAudioModel, child) => Slider(
+                            value: myAudioModel.position == null
+                                ? 0
+                                : myAudioModel.position!.inMilliseconds
+                                .toDouble(),
+                            activeColor: primaryColor,
+                            inactiveColor: darkPrimaryColor.withOpacity(0.3),
+                            onChanged: (value) {
+                              myAudioModel.seekAudio(
+                                  Duration(milliseconds: value.toInt()));
+                            },
+                            min: 0,
+                            max: myAudioModel.totalDuration == null
+                                ? 20
+                                : myAudioModel.totalDuration!.inMilliseconds
+                                .toDouble(),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                PlayerControls(),
-                SizedBox(
-                  height: 100,
-                ),
-                FlatButton(
-                    onPressed: () async {
-                      final response = await http
-                          .get(Uri.parse("http://192.168.56.1:7890/lyrics"));
-
-                      final decoded =
-                          json.decode(response.body) as Map<String, dynamic>;
-                      setState(() {
-                        lyrics = decoded['response'];
-                        print(lyrics);
-                      });
-                    },
-                    child: Text("press")),
-                SizedBox(
-                  height: 20,
-                ),
-                //   ListView.builder(
-                //       itemCount: Lyrics.length,
-                //       itemBuilder: (BuildContext context, int index) {
-                //         return Text(Lyrics.first);
-                //       })
-              ],
-            ),]
+                    ],
+                  ),
+                  PlayerControls(),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  // FlatButton(
+                  //     onPressed: () async {
+                  //       final response = await http
+                  //           .get(Uri.parse("http://192.168.56.1:7890/lyrics"));
+                  //
+                  //       final decoded =
+                  //           json.decode(response.body) as Map<String, dynamic>;
+                  //       setState(() {
+                  //         lyrics = decoded['response'];
+                  //         print(lyrics);
+                  //       });
+                  //     },
+                  //     child: Text("press")),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  //   ListView.builder(
+                  //       itemCount: Lyrics.length,
+                  //       itemBuilder: (BuildContext context, int index) {
+                  //         return Text(Lyrics.first);
+                  //       })
+                ],
+              ),]
           ),
         ),
       ),

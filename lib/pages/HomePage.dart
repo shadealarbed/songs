@@ -32,11 +32,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool visbule1 = false;
   bool selectedwidget = false;
   bool selectedwidget1 = false;
+  int s = 1;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    s++;
 
     posright1 = 0;
     posright2 = 0;
@@ -62,15 +64,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       appBar: AppBar(
         backgroundColor: Color(0xff550062),
         title: Text('Welcome to song generetor'),
-        leading: IconButton(
-          icon: Icon(Icons.list),
-          onPressed: () {},
-        ),
         actions: [Padding(
           padding: const EdgeInsets.all(8.0),
           child: Image.asset("assets/logo.png"),
         )],
       ),
+      drawer: const NavigationDrawer(),
       body: ListView(children: [
         Container(
           height: MediaQuery.of(context).size.height,
@@ -296,7 +295,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 SizedBox(height: 200,),
                 Center(child: Text("Song Generator",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),),
                 SizedBox(height: 10,),
-                Center(child: Text("Version 1.0.0",style: TextStyle(fontWeight: FontWeight.w400,color: Colors.white),),)
+                Center(child: Text("Version 1.0.$s",style: TextStyle(fontWeight: FontWeight.w400,color: Colors.white),),)
               ],
             ),
           ),
@@ -368,6 +367,46 @@ class CustomList extends StatelessWidget {
     );
   }
 }
+class NavigationDrawer extends StatelessWidget {
+  const NavigationDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context)  => Drawer(backgroundColor: Color(0xffff8700),
+    child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          buildHeader(context),
+        buildMenuItems(context),
+        ],
+      ),
+    ),
+  );
+  Widget buildHeader(BuildContext context)=> Container(
+    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+  );
+  Widget buildMenuItems(BuildContext context)=> Container(
+    padding: EdgeInsets.all(24),
+    child: Wrap(
+      runSpacing: 16,
+      children: [
+        ListTile(
+          leading: const Icon(Icons.home),
+          title: Text('Home'),
+          onTap: (){},
+        ),
+        const Divider(color: Colors.black45,),
+        ListTile(
+          leading: const Icon(Icons.favorite),
+          title: Text('Favurites'),
+          onTap: (){},
+        ),
+      ],
+    ),
+  );
+  }
+
+
 
 class CustomBotton extends StatelessWidget {
   const CustomBotton({
@@ -387,4 +426,5 @@ class CustomBotton extends StatelessWidget {
           color: Color(0xffef007e).withOpacity(0.1)),
     );
   }
+  
 }

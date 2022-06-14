@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         GenrateSong.id: (context) => GenrateSong(),
         MoodSongs.id: (context) => MoodSongs(),
         VoiceMaker.id: (context) => VoiceMaker(),
-        ResultPage.id: (context) => ResultPage(),
+        ResultPage.id: (context) => ResultPage(motion: '',img: '',),
         ChooseGenre.id: (context) => ChooseGenre()
       },
       home: SplashScreenView(
