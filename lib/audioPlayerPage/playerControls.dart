@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:senior_demo/audioPlayerPage/albumart.dart';
 import 'package:senior_demo/audioPlayerPage/myaudio.dart';
+import 'package:senior_demo/pages/choosegenre.dart';
 
 import 'colors.dart';
 
@@ -32,7 +33,7 @@ class PlayerControls extends StatelessWidget {
                 Controls(
                   icon: Icons.skip_previous,
                 ),
-                PlayControl(),
+                PlayControl(songname: songName,),
                 Controls(
                   icon: Icons.skip_next,
                 ),
@@ -49,11 +50,14 @@ class PlayerControls extends StatelessWidget {
 }
 
 class PlayControl extends StatefulWidget {
+  String? songname;
+  PlayControl({required this.songname});
   @override
   State<PlayControl> createState() => _PlayControlState();
 }
 
 class _PlayControlState extends State<PlayControl> {
+
   @override
   Widget build(BuildContext context) {
     return Consumer<MyAudio>(
@@ -63,6 +67,7 @@ class _PlayControlState extends State<PlayControl> {
             myAudioModel.pauseAudio();
           else {
             myAudioModel.playAudio();
+            myAudioModel.Songname = widget.songname;
           }
         },
         child: Container(

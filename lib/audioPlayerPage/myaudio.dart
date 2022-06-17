@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 //import 'package:audioplayers/web/audioplayers_web.dart';
 
 import 'package:flutter/material.dart';
+import 'package:senior_demo/pages/choosegenre.dart';
 
 import 'albumart.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,7 @@ class MyAudio extends ChangeNotifier{
   Duration? totalDuration;
   Duration? position;
   String? audioState;
+  String? Songname;
 
   MyAudio(){
     initAudio();
@@ -25,6 +27,7 @@ class MyAudio extends ChangeNotifier{
     audioPlayer.onDurationChanged.listen((updatedDuration) {
         totalDuration = updatedDuration;
         notifyListeners();
+        Songname = songName;
     });
 
     audioPlayer.onAudioPositionChanged.listen((updatedPosition) {
@@ -45,9 +48,10 @@ class MyAudio extends ChangeNotifier{
 
   Future playAudio() async {
     final player = AudioCache(prefix: "assets/sf2/");
-    final url = await player.load("romance.mp3");
+    final url = await player.load("${Songname!}.mp3");
     await audioPlayer.setUrl(url.path,isLocal: true);
-    await audioPlayer.play(url.path,isLocal: true);
+    await audioPlayer.play(url.path, isLocal: true);
+    print(Songname);
 
   }
 

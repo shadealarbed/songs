@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
-import 'package:intro_slider/slide_object.dart';
+//import 'package:intro_slider/slide_object.dart';
 import 'package:provider/provider.dart';
 import 'package:senior_demo/pages/ChatBootPage.dart';
 import 'package:senior_demo/pages/GenrateSong.dart';
@@ -9,7 +9,7 @@ import 'package:senior_demo/pages/ResultPage.dart';
 import 'package:senior_demo/pages/choosegenre.dart';
 import 'package:senior_demo/pages/generate_song/MoodSongs.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
-import 'package:intro_slider/scrollbar_behavior_enum.dart';
+//import 'package:intro_slider/scrollbar_behavior_enum.dart';
 
 import 'package:senior_demo/audioPlayerPage/myaudio.dart';
 import 'components/VoiceMaker.dart';
@@ -235,8 +235,8 @@ class IntroScreenState extends State<IntroScreen> {
       backgroundColorAllSlides: Color(0xff550062),
 
       // Scrollbar
-      verticalScrollbarBehavior: scrollbarBehavior.SHOW_ALWAYS,
-      scrollPhysics: BouncingScrollPhysics(),
+      // verticalScrollbarBehavior: scrollbarBehavior.SHOW_ALWAYS,
+      // scrollPhysics: BouncingScrollPhysics(),
     );
   }
 }

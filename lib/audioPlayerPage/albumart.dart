@@ -10,9 +10,7 @@ import 'package:senior_demo/utils/network.dart';
 import 'package:senior_demo/utils/url.dart';
 
 class AlbumArt extends StatefulWidget {
-  AlbumArt({
-    Key? key,required this.img
-  }) : super(key: key);
+  AlbumArt({Key? key, required this.img}) : super(key: key);
   String img;
 
   @override
@@ -26,6 +24,7 @@ class _AlbumArtState extends State<AlbumArt> with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> animation;
   int i = 0;
+  int j = 1;
 
   @override
   void initState() {
@@ -120,31 +119,31 @@ class _AlbumArtState extends State<AlbumArt> with TickerProviderStateMixin {
                           //   lyrics,
                           //   style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.bold),
                           // ),
+
                           customAnimatedBuilder(controller: _controller, lyrics: lyrics),
-                              FlatButton(
-                                  onPressed: () async {
-                                    final response = await http.get(Uri.parse(
-                                        "http://169.254.209.151:7890/lyrics"));
-                                    final decoded = json.decode(response.body)
-                                        as Map<String, dynamic>;
-                                    setState(() {
-                                      lyrics = decoded['feelings'];
-                                      print(lyrics);
-                                          _controller.forward();
-                                    });
-                                  },
-                                  child: Container(
-                                      height: 20,
-                                      width: 80,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.grey.withOpacity(0.5)),
-                                      child: Text(
-                                        'Show Lyrics',
-                                        style: TextStyle(color: Colors.white),
-                                      ))),
-                                                  ],
+                          FlatButton(
+                              onPressed: () async {
+                                final response = await http.get(Uri.parse(
+                                    "http://169.254.209.151:7890/lyrics"));
+                                final decoded = json.decode(response.body)
+                                    as Map<String, dynamic>;
+                                setState(() {
+                                  _controller.forward();
+                                  lyrics = decoded['feelings'];
+                                  print(lyrics);
+                                });
+                              },
+                              child: Container(
+                                  height: 20,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.grey.withOpacity(0.5)),
+                                  child: Text(
+                                    'Show Lyrics',
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                        ],
                       ),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -166,6 +165,16 @@ class _AlbumArtState extends State<AlbumArt> with TickerProviderStateMixin {
       ),
     );
   }
+
+  //
+  // void controlerswitch() {
+  //   _controller.forward();
+  //   i++;
+  // }
+  //
+  // void Controlerrswitch() {
+  //   _controller.reverse();
+  // }
 
   List<String> split(String string, String separator, {int max = 0}) {
     var result = <String>[];

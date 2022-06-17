@@ -393,7 +393,7 @@ class NavigationDrawer extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.home),
           title: Text('Home'),
-          onTap: (){},
+          onTap: (){Navigator.pushNamed(context, ChooseGenre.id);},
         ),
         const Divider(color: Colors.black45,),
         ListTile(

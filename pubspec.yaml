@@ -32,13 +32,16 @@ dependencies:
   splash_screen_view:
   animated_text_kit: ^4.2.1
   http: ^0.13.3
-  audioplayers: 
+  audioplayers: ^0.19.0
   path_provider:
   font_awesome_flutter:
   provider:
   animations:
   intro_slider:
   flutter_launcher_icons:
+  flutter_chord: ^0.1.2
+
+
 
 
 

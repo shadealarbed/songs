@@ -4,13 +4,16 @@ import 'dart:ui';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:senior_demo/audioPlayerPage/albumart.dart';
+import 'package:senior_demo/audioPlayerPage/myaudio.dart';
 import 'package:senior_demo/pages/ResultPage.dart';
 import 'package:senior_demo/pages/generate_song/MoodSongs.dart';
 import 'package:http/http.dart' as http;
 
 late String Text1 = "";
 late String Imagee = "";
+String songName = "";
 
 class ChooseGenre extends StatefulWidget {
   static final id = "ChooseGenre";
@@ -543,6 +546,17 @@ class _ChooseGenreState extends State<ChooseGenre>
                                     motion: Text1,
                                     img: Imagee,
                                   )));
+                      setState(() {
+                      Consumer<MyAudio>(
+                        builder: (_, myAudioModel, child) => GestureDetector(
+                          onTap: () {
+                            myAudioModel.Songname = songName;
+                            print(myAudioModel.Songname);
+                          },
+                        ),
+                      );
+
+                      });
                     },
                     child: Container(
                       key: _formkey,
@@ -671,15 +685,20 @@ class _CustomeSelectedState extends State<CustomeSelected> {
         onPressed: () async {
           //sending a post request to the url
           //_savingData();
-          final response = await http.post(
-              (Uri.parse("http://169.254.209.151:7890/lyrics")),
+          // final response = await http.post(
+          //     (Uri.parse("http://169.254.209.151:7890/lyrics")),
+          //     body: json.encode({'feelings': widget.text}));
+          final response1 = await http.post(
+              (Uri.parse("http://169.254.209.151:7890/music")),
               body: json.encode({'feelings': widget.text}));
           setState(() {
             isSelected = !isSelected;
-            print(response.body);
+            print(response1.body);
             print(widget.text);
             Text1 = widget.text;
             Imagee = widget.img;
+            songName = widget.text;
+
           });
 
           ///send to the server
