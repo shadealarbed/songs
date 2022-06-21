@@ -8,6 +8,9 @@ import 'package:senior_demo/pages/HomePage.dart';
 import 'package:senior_demo/pages/ResultPage.dart';
 import 'package:senior_demo/pages/choosegenre.dart';
 import 'package:senior_demo/pages/generate_song/MoodSongs.dart';
+import 'package:senior_demo/sign_in_up/LoginScreen.dart';
+import 'package:senior_demo/sign_in_up/RegistrationScreen.dart';
+import 'package:senior_demo/sign_in_up/welcomeScreen.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 //import 'package:intro_slider/scrollbar_behavior_enum.dart';
 
@@ -31,10 +34,13 @@ class MyApp extends StatelessWidget {
         MoodSongs.id: (context) => MoodSongs(),
         VoiceMaker.id: (context) => VoiceMaker(),
         ResultPage.id: (context) => ResultPage(motion: '',img: '',),
-        ChooseGenre.id: (context) => ChooseGenre()
+        ChooseGenre.id: (context) => ChooseGenre(),
+        WelcomeScreen.id: (context) => WelcomeScreen(),
+        RegistrationScreen.id: (context)=> RegistrationScreen(),
+        LoginScreen.id: (context) => LoginScreen()
       },
       home: SplashScreenView(
-        navigateRoute: IntroScreen(),
+        navigateRoute: WelcomeScreen(),
         duration: 5000,
         imageSize: 130,
         imageSrc: "assets/logo.png",

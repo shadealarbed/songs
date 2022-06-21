@@ -34,12 +34,20 @@ dependencies:
   http: ^0.13.3
   audioplayers: ^0.19.0
   path_provider:
+  path:
+  shared_preferences:
   font_awesome_flutter:
   provider:
   animations:
   intro_slider:
   flutter_launcher_icons:
   flutter_chord: ^0.1.2
+  modal_progress_hud_nsn: ^0.1.0-nullsafety-1
+  sqflite:
+#  just_audio:
+#  rxdart:
+#  overlay_support:
+#  audio_video_progress_bar:
 
 
 

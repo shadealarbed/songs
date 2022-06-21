@@ -33,7 +33,7 @@ class PlayerControls extends StatelessWidget {
                 Controls(
                   icon: Icons.skip_previous,
                 ),
-                PlayControl(songname: songName,),
+                PlayControl(songname: ChooseGenre.songName,),
                 Controls(
                   icon: Icons.skip_next,
                 ),
@@ -67,7 +67,7 @@ class _PlayControlState extends State<PlayControl> {
             myAudioModel.pauseAudio();
           else {
             myAudioModel.playAudio();
-            myAudioModel.Songname = widget.songname;
+            myAudioModel.Songname = ChooseGenre.songName;
           }
         },
         child: Container(
@@ -102,12 +102,12 @@ class _PlayControlState extends State<PlayControl> {
                       color: primaryColor, shape: BoxShape.circle),
                   child: Center(
                       child: Icon(
-                    myAudioModel.audioState == "Playing"
-                        ? Icons.pause
-                        : Icons.play_arrow,
-                    size: 50,
-                    color: darkPrimaryColor,
-                  )),
+                        myAudioModel.audioState == "Playing"
+                            ? Icons.pause
+                            : Icons.play_arrow,
+                        size: 50,
+                        color: darkPrimaryColor,
+                      )),
                 ),
               ),
             ],
@@ -147,13 +147,13 @@ class Controls extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.all(10),
               decoration:
-                  BoxDecoration(color: primaryColor, shape: BoxShape.circle),
+              BoxDecoration(color: primaryColor, shape: BoxShape.circle),
               child: Center(
                   child: Icon(
-                icon,
-                size: 30,
-                color: darkPrimaryColor,
-              )),
+                    icon,
+                    size: 30,
+                    color: darkPrimaryColor,
+                  )),
             ),
           ),
         ],

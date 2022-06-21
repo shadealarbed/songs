@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:senior_demo/audioPlayerPage/albumart.dart';
 import 'package:senior_demo/audioPlayerPage/myaudio.dart';
@@ -13,12 +14,13 @@ import 'package:http/http.dart' as http;
 
 late String Text1 = "";
 late String Imagee = "";
-String songName = "";
+
 
 class ChooseGenre extends StatefulWidget {
   static final id = "ChooseGenre";
+  static String songName = "";
 
-  const ChooseGenre({Key? key}) : super(key: key);
+  const ChooseGenre({Key? key,}) : super(key: key);
 
   @override
   _ChooseGenreState createState() => _ChooseGenreState();
@@ -30,6 +32,7 @@ class _ChooseGenreState extends State<ChooseGenre>
 
   String genre = "";
   late double posright;
+  bool showSpinner = false;
 
   late AnimationController _controller;
 
@@ -152,6 +155,7 @@ class _ChooseGenreState extends State<ChooseGenre>
                           ),
                           _isalvated[0]
                               ? customDescription(
+                            showSpinner: showSpinner,
                                   controller: _controller,
                                   type: "happy",
                                   img: "happy.jpg",
@@ -225,6 +229,7 @@ class _ChooseGenreState extends State<ChooseGenre>
                           ),
                           _isalvated[1]
                               ? customDescription(
+                            showSpinner: showSpinner,
                                   controller: _controller,
                                   type: "sad",
                                   img: "sad.jpg",
@@ -267,23 +272,26 @@ class _ChooseGenreState extends State<ChooseGenre>
                             right: _isalvated[2] ? posright : 130,
                             child: Column(
                               children: [
-                                Container(
-                                  child: Image.asset(
-                                    'emotions/relationship.png',
-                                    width: 100,
-                                    height: 100,
+                                ModalProgressHUD(
+                                  inAsyncCall: showSpinner,
+                                  child: Container(
+                                    child: Image.asset(
+                                      'emotions/relationship.png',
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0xffef007e)
+                                                .withOpacity(0.1),
+                                            offset: const Offset(4, 4),
+                                            blurRadius: 15,
+                                            spreadRadius: 1,
+                                          ),
+                                        ]),
                                   ),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0xffef007e)
-                                              .withOpacity(0.1),
-                                          offset: const Offset(4, 4),
-                                          blurRadius: 15,
-                                          spreadRadius: 1,
-                                        ),
-                                      ]),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -297,6 +305,7 @@ class _ChooseGenreState extends State<ChooseGenre>
                           ),
                           _isalvated[2]
                               ? customDescription(
+                            showSpinner: showSpinner,
                                   controller: _controller,
                                   type: "romance",
                                   img: "romance.jpg",
@@ -369,6 +378,7 @@ class _ChooseGenreState extends State<ChooseGenre>
                           ),
                           _isalvated[3]
                               ? customDescription(
+                            showSpinner: showSpinner,
                                   controller: _controller,
                                   type: "advanture",
                                   img: "adv1.png",
@@ -441,6 +451,7 @@ class _ChooseGenreState extends State<ChooseGenre>
                           ),
                           _isalvated[4]
                               ? customDescription(
+                            showSpinner: showSpinner,
                                   controller: _controller,
                                   type: "Angry",
                                   img: "angry.jpg",
@@ -475,56 +486,60 @@ class _ChooseGenreState extends State<ChooseGenre>
                     borderRadius: BorderRadius.circular(25.0),
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-                      child: Container(
-                        child: Stack(alignment: Alignment.center, children: [
-                          AnimatedPositioned(
-                            curve: Curves.bounceOut,
-                            duration: Duration(milliseconds: 800),
-                            right: _isalvated[5] ? posright : 130,
-                            child: Column(
-                              children: [
-                                Container(
-                                  child: Image.asset(
-                                    'emotions/calm.png',
-                                    width: 100,
-                                    height: 100,
+                      child: ModalProgressHUD(
+                        inAsyncCall: showSpinner,
+                        child: Container(
+                          child: Stack(alignment: Alignment.center, children: [
+                            AnimatedPositioned(
+                              curve: Curves.bounceOut,
+                              duration: Duration(milliseconds: 800),
+                              right: _isalvated[5] ? posright : 130,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    child: Image.asset(
+                                      'emotions/calm.png',
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0xffef007e)
+                                                .withOpacity(0.1),
+                                            offset: const Offset(4, 4),
+                                            blurRadius: 15,
+                                            spreadRadius: 1,
+                                          ),
+                                        ]),
                                   ),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0xffef007e)
-                                              .withOpacity(0.1),
-                                          offset: const Offset(4, 4),
-                                          blurRadius: 15,
-                                          spreadRadius: 1,
-                                        ),
-                                      ]),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Relaxing",
-                                  style: TextStyle(color: Color(0xffff8700)),
-                                )
-                              ],
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "Relaxing",
+                                    style: TextStyle(color: Color(0xffff8700)),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          _isalvated[5]
-                              ? customDescription(
-                                  controller: _controller,
-                                  type: "relax",
-                                  img: "relax.jpg",
-                                  description:
-                                      "You Just Won Something \n And You Want To Taste \n What Is It Like To Be \n Successful!!")
-                              : Container()
-                        ]),
-                        height: 200,
-                        width: MediaQuery.of(context).size.width - 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.black26),
+                            _isalvated[5]
+                                ? customDescription(
+                              showSpinner: showSpinner,
+                                    controller: _controller,
+                                    type: "relax",
+                                    img: "relax.jpg",
+                                    description:
+                                        "You Just Won Something \n And You Want To Taste \n What Is It Like To Be \n Successful!!")
+                                : Container()
+                          ]),
+                          height: 200,
+                          width: MediaQuery.of(context).size.width - 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: Colors.black26),
+                        ),
                       ),
                     ),
                   ),
@@ -546,17 +561,7 @@ class _ChooseGenreState extends State<ChooseGenre>
                                     motion: Text1,
                                     img: Imagee,
                                   )));
-                      setState(() {
-                      Consumer<MyAudio>(
-                        builder: (_, myAudioModel, child) => GestureDetector(
-                          onTap: () {
-                            myAudioModel.Songname = songName;
-                            print(myAudioModel.Songname);
-                          },
-                        ),
-                      );
 
-                      });
                     },
                     child: Container(
                       key: _formkey,
@@ -587,6 +592,7 @@ class customDescription extends StatelessWidget {
     required this.description,
     required this.type,
     required this.img,
+    required this.showSpinner
   })  : _controller = controller,
         super(key: key);
 
@@ -594,6 +600,7 @@ class customDescription extends StatelessWidget {
   final String description;
   String type;
   String img;
+  bool showSpinner;
 
   @override
   Widget build(BuildContext context) {
@@ -641,6 +648,7 @@ class customDescription extends StatelessWidget {
                           CustomeSelected(
                             text: type,
                             img: img,
+                            showSpinner: showSpinner,
                           ),
                         ],
                       ),
@@ -655,10 +663,11 @@ class customDescription extends StatelessWidget {
 }
 
 class CustomeSelected extends StatefulWidget {
-  CustomeSelected({required this.text, required this.img});
+  CustomeSelected({required this.text, required this.img,required this.showSpinner});
 
   String text;
   String img;
+  bool showSpinner;
 
   @override
   _CustomeSelectedState createState() => _CustomeSelectedState();
@@ -683,24 +692,34 @@ class _CustomeSelectedState extends State<CustomeSelected> {
       //key: _formkey,
       child: IconButton(
         onPressed: () async {
-          //sending a post request to the url
-          //_savingData();
-          // final response = await http.post(
-          //     (Uri.parse("http://169.254.209.151:7890/lyrics")),
-          //     body: json.encode({'feelings': widget.text}));
-          final response1 = await http.post(
-              (Uri.parse("http://169.254.209.151:7890/music")),
-              body: json.encode({'feelings': widget.text}));
           setState(() {
-            isSelected = !isSelected;
-            print(response1.body);
-            print(widget.text);
-            Text1 = widget.text;
-            Imagee = widget.img;
-            songName = widget.text;
-
+            widget.showSpinner = true;
           });
-
+          // sending a post request to the url
+          // _savingData();
+          try {
+            final response = await http.post(
+                (Uri.parse("http://169.254.209.151:40222/lyrics")),
+                body: json.encode({'feelings': widget.text}));
+            final response1 = await http.post(
+                (Uri.parse("http://169.254.209.151:40222/music")),
+                body: json.encode({'feelings': widget.text}));
+            setState(() {
+              isSelected = !isSelected;
+              print(response1.body);
+              print(response.body);
+              print(widget.text);
+              Text1 = widget.text;
+              Imagee = widget.img;
+              ChooseGenre.songName = widget.text;
+            });
+            setState(() {
+              widget.showSpinner = false;
+            });
+          }
+          catch(e){
+            print(e);
+          }
           ///send to the server
         },
         icon: isSelected

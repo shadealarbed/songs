@@ -8,6 +8,8 @@ import 'package:senior_demo/audioPlayerPage/colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:senior_demo/utils/network.dart';
 import 'package:senior_demo/utils/url.dart';
+late AnimationController _controller;
+
 
 class AlbumArt extends StatefulWidget {
   AlbumArt({Key? key, required this.img}) : super(key: key);
@@ -21,17 +23,15 @@ class _AlbumArtState extends State<AlbumArt> with TickerProviderStateMixin {
   String lyrics = "";
 
   // List<String>? splitLyrics;
-  late AnimationController _controller;
+
   late Animation<double> animation;
   int i = 0;
-  int j = 1;
 
   @override
   void initState() {
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 800));
-    animation = Tween<double>(begin: 0, end: 800).animate(_controller);
 
     //
     // splitLyrics = lyrics.split("");
@@ -121,16 +121,18 @@ class _AlbumArtState extends State<AlbumArt> with TickerProviderStateMixin {
                           // ),
 
                           customAnimatedBuilder(controller: _controller, lyrics: lyrics),
+                          ///getWordsListed()[i],
                           FlatButton(
                               onPressed: () async {
                                 final response = await http.get(Uri.parse(
-                                    "http://169.254.209.151:7890/lyrics"));
+                                    "http://169.254.209.151:40222/lyrics"));
                                 final decoded = json.decode(response.body)
                                     as Map<String, dynamic>;
+
                                 setState(() {
-                                  _controller.forward();
                                   lyrics = decoded['feelings'];
                                   print(lyrics);
+                                  print(lyrics.split(" ").length);
                                 });
                               },
                               child: Container(
@@ -167,14 +169,14 @@ class _AlbumArtState extends State<AlbumArt> with TickerProviderStateMixin {
   }
 
   //
-  // void controlerswitch() {
-  //   _controller.forward();
-  //   i++;
-  // }
-  //
-  // void Controlerrswitch() {
-  //   _controller.reverse();
-  // }
+  void controlerForward() {
+    _controller.forward();
+    i++;
+  }
+
+  void ControlerRevers() {
+    _controller.reverse();
+  }
 
   List<String> split(String string, String separator, {int max = 0}) {
     var result = <String>[];
