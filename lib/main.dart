@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         GenrateSong.id: (context) => GenrateSong(),
         MoodSongs.id: (context) => MoodSongs(),
         VoiceMaker.id: (context) => VoiceMaker(),
-        ResultPage.id: (context) => ResultPage(motion: '',img: '',),
+        ResultPage.id: (context) => ResultPage(),
         ChooseGenre.id: (context) => ChooseGenre(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
         RegistrationScreen.id: (context)=> RegistrationScreen(),

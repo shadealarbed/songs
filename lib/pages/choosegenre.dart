@@ -1,24 +1,19 @@
 import 'dart:convert';
 import 'dart:ui';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:provider/provider.dart';
-import 'package:senior_demo/audioPlayerPage/albumart.dart';
-import 'package:senior_demo/audioPlayerPage/myaudio.dart';
 import 'package:senior_demo/pages/ResultPage.dart';
-import 'package:senior_demo/pages/generate_song/MoodSongs.dart';
 import 'package:http/http.dart' as http;
 
-late String Text1 = "";
-late String Imagee = "";
+
 
 
 class ChooseGenre extends StatefulWidget {
   static final id = "ChooseGenre";
   static String songName = "";
+  static String Image = "";
+  static String Text1 = "";
 
   const ChooseGenre({Key? key,}) : super(key: key);
 
@@ -549,19 +544,13 @@ class _ChooseGenreState extends State<ChooseGenre>
                 ),
                 FlatButton(
                     onPressed: () async {
-                      // _savingData();
-                      // final response = await http.post(
-                      //     (Uri.parse("http://192.168.56.1:7890/lyrics")),
-                      //     body: json.encode({'feelings' : "relax"}));
-                      //sending a post request to the url
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => ResultPage(
-                                    motion: Text1,
-                                    img: Imagee,
+                                    motion: ChooseGenre.Text1,
+                                    img: ChooseGenre.Image,
                                   )));
-
                     },
                     child: Container(
                       key: _formkey,
@@ -695,8 +684,6 @@ class _CustomeSelectedState extends State<CustomeSelected> {
           setState(() {
             widget.showSpinner = true;
           });
-          // sending a post request to the url
-          // _savingData();
           try {
             final response = await http.post(
                 (Uri.parse("http://169.254.209.151:40222/lyrics")),
@@ -709,8 +696,8 @@ class _CustomeSelectedState extends State<CustomeSelected> {
               print(response1.body);
               print(response.body);
               print(widget.text);
-              Text1 = widget.text;
-              Imagee = widget.img;
+              ChooseGenre.Text1 = widget.text;
+              ChooseGenre.Image = widget.img;
               ChooseGenre.songName = widget.text;
             });
             setState(() {
