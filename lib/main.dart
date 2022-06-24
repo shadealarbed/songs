@@ -42,8 +42,8 @@ class MyApp extends StatelessWidget {
       home: SplashScreenView(
         navigateRoute: WelcomeScreen(),
         duration: 5000,
-        imageSize: 130,
-        imageSrc: "assets/logo.png",
+        imageSize: 400,
+        imageSrc: "logos/logo1.png",
         text: "Song Generetor App",
         textType: TextType.ColorizeAnimationText,
         textStyle: TextStyle(

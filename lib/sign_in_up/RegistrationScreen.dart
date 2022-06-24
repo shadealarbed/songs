@@ -4,7 +4,6 @@ import 'package:senior_demo/sign_in_up/rounded_button.dart';
 import 'package:senior_demo/sign_in_up/user.dart';
 import 'package:senior_demo/sign_in_up/userDatabase.dart';
 
-
 import '../../main.dart';
 import 'LoginScreen.dart';
 import 'constants1.dart';
@@ -43,7 +42,10 @@ class SignUpState extends State {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text("welcome"),backgroundColor: Color(0xff550062),),
+      appBar: AppBar(
+        title: Text("welcome"),
+        backgroundColor: Color(0xff550062),
+      ),
       backgroundColor: Color(0xff550062),
       key: scaffoldKey,
       body: SafeArea(
@@ -75,8 +77,16 @@ class SignUpState extends State {
                             Hero(
                               tag: 'logo',
                               child: Container(
-                                height: 150.0,
-                                child: Image.asset('assets/logo.png'),
+                                decoration: BoxDecoration(boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xffef007e).withOpacity(0.05),
+                                    offset: const Offset(4, 4),
+                                    blurRadius: 15,
+                                    spreadRadius: 1,
+                                  ),
+                                ]),
+                                height: 300.0,
+                                child: Image.asset('logos/logo1.png'),
                               ),
                             ),
                             SizedBox(

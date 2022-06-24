@@ -43,9 +43,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             children: <Widget>[
               Hero(
                 tag: 'logo',
-                child: Container(
-                  child: Image.asset('assets/logo.png'),
-                  height: 90.0,
+                child: Container(height: 350,
+                  child: Image.asset('logos/logo1.png',fit: BoxFit.cover,),
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Color(0xffef007e).withOpacity(0.1),
+                      offset: const Offset(4, 4),
+                      blurRadius: 40,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                  ),
                 ),
               ),
               Row(

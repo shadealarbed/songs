@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:senior_demo/pages/ChatBootPage.dart';
 import 'package:senior_demo/pages/choosegenre.dart';
 
+import '../audioPlayerPage/listOfSongs.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -64,10 +66,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       appBar: AppBar(
         backgroundColor: Color(0xff550062),
         title: Text('Welcome to song generetor'),
-        actions: [Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset("assets/logo.png"),
-        )],
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(child: Image.asset("logos/logo1.png")),
+          )
+        ],
       ),
       drawer: const NavigationDrawer(),
       body: ListView(children: [
@@ -94,13 +98,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         _controller.forward();
                         visbule = true;
                         selectedwidget = !selectedwidget;
-                      }
-                      else{
+                      } else {
                         _controller.reverse();
                         posright1 = 0;
                         visbule = false;
                         selectedwidget = !selectedwidget;
-
                       }
                     });
                   },
@@ -168,7 +170,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             Positioned(
                                 left: 150,
                                 child: visbule
-                                    ? CustomList(description: 'Learn How The App Works \n Know Where We Get Our Resources \n And More..',
+                                    ? CustomList(
+                                        description:
+                                            'Learn How The App Works \n Know Where We Get Our Resources \n And More..',
                                         icon: Icon(
                                           Icons.chat,
                                           color: Color(0xffef007e),
@@ -199,8 +203,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         controller.forward();
                         visbule1 = true;
                         selectedwidget1 = !selectedwidget1;
-                      }
-                      else{
+                      } else {
                         posright2 = 0;
                         controller.reverse();
                         visbule1 = false;
@@ -279,7 +282,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           Icons.whatshot,
                                           color: Color(0xffef007e),
                                         ),
-                                description: 'Make songs Based On What You Feel \n We Have a Different Types Of Genres For Your Musical Taste ',)
+                                        description:
+                                            'Make songs Based On What You Feel \n We Have a Different Types Of Genres For Your Musical Taste ',
+                                      )
                                     : Container()),
                           ]),
                         ),
@@ -292,10 +297,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                SizedBox(height: 200,),
-                Center(child: Text("Song Generator",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),),
-                SizedBox(height: 10,),
-                Center(child: Text("Version 1.0.$s",style: TextStyle(fontWeight: FontWeight.w400,color: Colors.white),),)
+                SizedBox(
+                  height: 200,
+                ),
+                Center(
+                  child: Text(
+                    "Song Generator",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Text(
+                    "Version 1.0.$s",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400, color: Colors.white),
+                  ),
+                )
               ],
             ),
           ),
@@ -367,46 +388,55 @@ class CustomList extends StatelessWidget {
     );
   }
 }
+
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context)  => Drawer(backgroundColor: Color(0xffff8700),
-    child: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          buildHeader(context),
-        buildMenuItems(context),
-        ],
-      ),
-    ),
-  );
-  Widget buildHeader(BuildContext context)=> Container(
-    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-  );
-  Widget buildMenuItems(BuildContext context)=> Container(
-    padding: EdgeInsets.all(24),
-    child: Wrap(
-      runSpacing: 16,
-      children: [
-        ListTile(
-          leading: const Icon(Icons.home),
-          title: Text('Home'),
-          onTap: (){Navigator.pushNamed(context, ChooseGenre.id);},
+  Widget build(BuildContext context) => Drawer(
+        backgroundColor: Color(0xffff8700),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              buildHeader(context),
+              buildMenuItems(context),
+            ],
+          ),
         ),
-        const Divider(color: Colors.black45,),
-        ListTile(
-          leading: const Icon(Icons.favorite),
-          title: Text('Favurites'),
-          onTap: (){},
+      );
+
+  Widget buildHeader(BuildContext context) => Container(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      );
+
+  Widget buildMenuItems(BuildContext context) => Container(
+        padding: EdgeInsets.all(24),
+        child: Wrap(
+          runSpacing: 16,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: Text('Home'),
+              onTap: () {
+                Navigator.pushNamed(context, ChooseGenre.id);
+              },
+            ),
+            const Divider(
+              color: Colors.black45,
+            ),
+            ListTile(
+              leading: const Icon(Icons.favorite),
+              title: Text('Favurites'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ListSongs()));
+              },
+            ),
+          ],
         ),
-      ],
-    ),
-  );
-  }
-
-
+      );
+}
 
 class CustomBotton extends StatelessWidget {
   const CustomBotton({
@@ -426,5 +456,4 @@ class CustomBotton extends StatelessWidget {
           color: Color(0xffef007e).withOpacity(0.1)),
     );
   }
-  
 }

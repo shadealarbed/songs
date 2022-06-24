@@ -70,8 +70,16 @@ class LoginState extends State {
                         Hero(
                           tag: 'logo',
                           child: Container(
-                            height: 150.0,
-                            child: Image.asset('assets/logo.png'),
+                            height: 300,
+                            decoration: BoxDecoration(boxShadow: [
+                              BoxShadow(
+                                color: Color(0xffef007e).withOpacity(0.05),
+                                offset: const Offset(4, 4),
+                                blurRadius: 15,
+                                spreadRadius: 1,
+                              ),
+                            ]),
+                            child: Image.asset('logos/logo1.png'),
                           ),
                         ),
                         SizedBox(

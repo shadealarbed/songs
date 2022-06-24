@@ -7,7 +7,7 @@ import 'package:senior_demo/pages/choosegenre.dart';
 import 'myaudio.dart';
 
 class ListSongs extends StatefulWidget {
-  ListSongs({Key? key, required this.SongName, this.function})
+  ListSongs({Key? key, this.SongName, this.function})
       : super(key: key);
   String? SongName;
   List<Row>? function;
