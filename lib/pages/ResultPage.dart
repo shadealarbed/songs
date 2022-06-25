@@ -35,6 +35,7 @@ class _ResultPageState extends State<ResultPage> {
   AudioPlayer audioPlayer = AudioPlayer();
   double sliderValue = 2;
   String lyrics = "";
+  double i = 0;
 
   Map audioData = {
     'image':
@@ -57,6 +58,17 @@ class _ResultPageState extends State<ResultPage> {
       create: (_) => MyAudio(),
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(Icons.keyboard_arrow_left_rounded),
+            onPressed: () {
+              setState(() {
+                MyAudio.audioPlayer1.stop();
+                MyAudio.audioPlayer.stop();
+                Navigator.pop(context);
+              });
+            },
+          ),
           title: Text('Your Song'),
           backgroundColor: Color(0xff550062),
           actions: [
@@ -117,6 +129,23 @@ class _ResultPageState extends State<ResultPage> {
                       });
                     },
                     icon: Icon(Icons.save_alt)),
+                IconButton(
+                    onPressed: ()async {
+                      setState(() async {
+                        await setVolume(i += 10);
+                      });
+                    },
+                    icon: Icon(Icons.add_outlined)),
+                SizedBox(
+                  height: 10,
+                ),
+                IconButton(
+                    onPressed: ()async {
+                      setState(() async {
+                        await setVolume(i -= 10);
+                      });
+                    },
+                    icon: Icon(Icons.minimize)),
                 Column(
                   children: [
                     SliderTheme(
@@ -164,5 +193,9 @@ class _ResultPageState extends State<ResultPage> {
         ),
       ),
     );
+  }
+
+  Future<void> setVolume(double volume) {
+    return MyAudio.audioPlayer1.setVolume(volume);
   }
 }

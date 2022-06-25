@@ -14,6 +14,8 @@ class ChooseGenre extends StatefulWidget {
   static String songName = "";
   static String Image = "";
   static String Text1 = "";
+  static bool seeResult=false;
+
 
   const ChooseGenre({Key? key,}) : super(key: key);
 
@@ -24,6 +26,7 @@ class ChooseGenre extends StatefulWidget {
 class _ChooseGenreState extends State<ChooseGenre>
     with TickerProviderStateMixin {
   List<bool> _isalvated = [false, false, false, false, false, false];
+
 
   String genre = "";
   late double posright;
@@ -393,76 +396,76 @@ class _ChooseGenreState extends State<ChooseGenre>
                 SizedBox(
                   height: 20,
                 ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      posright = 220;
-                      _isalvated[4] = !_isalvated[4];
-                      _isalvated[4]
-                          ? _controller.forward()
-                          : _controller.reverse();
-                    });
-                  },
-                  clipBehavior: Clip.none,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(25.0),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-                      child: Container(
-                        child: Stack(alignment: Alignment.center, children: [
-                          AnimatedPositioned(
-                            curve: Curves.bounceOut,
-                            duration: Duration(milliseconds: 800),
-                            right: _isalvated[4] ? posright : 130,
-                            child: Column(
-                              children: [
-                                Container(
-                                  child: Image.asset(
-                                    'emotions/angry1.png',
-                                    width: 100,
-                                    height: 100,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0xffef007e)
-                                              .withOpacity(0.1),
-                                          offset: const Offset(4, 4),
-                                          blurRadius: 15,
-                                          spreadRadius: 1,
-                                        ),
-                                      ]),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Dreams",
-                                  style: TextStyle(color: Color(0xffff8700)),
-                                )
-                              ],
-                            ),
-                          ),
-                          _isalvated[4]
-                              ? customDescription(
-                            showSpinner: showSpinner,
-                                  controller: _controller,
-                                  type: "Angry",
-                                  img: "angry.jpg",
-                                  description:
-                                      "You Feel Sleepy \n And You Cant Hold  \n Those Dreams You Want To \n Make True ")
-                              : Container()
-                        ]),
-                        height: 200,
-                        width: MediaQuery.of(context).size.width - 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.black26),
-                      ),
-                    ),
-                  ),
-                ),
+                // TextButton(
+                //   onPressed: () {
+                //     setState(() {
+                //       posright = 220;
+                //       _isalvated[4] = !_isalvated[4];
+                //       _isalvated[4]
+                //           ? _controller.forward()
+                //           : _controller.reverse();
+                //     });
+                //   },
+                //   clipBehavior: Clip.none,
+                //   child: ClipRRect(
+                //     borderRadius: BorderRadius.circular(25.0),
+                //     child: BackdropFilter(
+                //       filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                //       child: Container(
+                //         child: Stack(alignment: Alignment.center, children: [
+                //           AnimatedPositioned(
+                //             curve: Curves.bounceOut,
+                //             duration: Duration(milliseconds: 800),
+                //             right: _isalvated[4] ? posright : 130,
+                //             child: Column(
+                //               children: [
+                //                 Container(
+                //                   child: Image.asset(
+                //                     'emotions/angry1.png',
+                //                     width: 100,
+                //                     height: 100,
+                //                   ),
+                //                   decoration: BoxDecoration(
+                //                       borderRadius: BorderRadius.circular(20),
+                //                       boxShadow: [
+                //                         BoxShadow(
+                //                           color: Color(0xffef007e)
+                //                               .withOpacity(0.1),
+                //                           offset: const Offset(4, 4),
+                //                           blurRadius: 15,
+                //                           spreadRadius: 1,
+                //                         ),
+                //                       ]),
+                //                 ),
+                //                 SizedBox(
+                //                   height: 10,
+                //                 ),
+                //                 Text(
+                //                   "Dreams",
+                //                   style: TextStyle(color: Color(0xffff8700)),
+                //                 )
+                //               ],
+                //             ),
+                //           ),
+                //           _isalvated[4]
+                //               ? customDescription(
+                //             showSpinner: showSpinner,
+                //                   controller: _controller,
+                //                   type: "Angry",
+                //                   img: "angry.jpg",
+                //                   description:
+                //                       "You Feel Sleepy \n And You Cant Hold  \n Those Dreams You Want To \n Make True ")
+                //               : Container()
+                //         ]),
+                //         height: 200,
+                //         width: MediaQuery.of(context).size.width - 50,
+                //         decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(25),
+                //             color: Colors.black26),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(
                   height: 20,
                 ),
@@ -544,13 +547,17 @@ class _ChooseGenreState extends State<ChooseGenre>
                 ),
                 FlatButton(
                     onPressed: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ResultPage(
-                                    motion: ChooseGenre.Text1,
-                                    img: ChooseGenre.Image,
-                                  )));
+                      if(ChooseGenre.seeResult == true) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ResultPage(
+                                      motion: ChooseGenre.Text1,
+                                      img: ChooseGenre.Image,
+                                    )));
+                      }
+
                     },
                     child: Container(
                       key: _formkey,
@@ -686,10 +693,10 @@ class _CustomeSelectedState extends State<CustomeSelected> {
           });
           try {
             final response = await http.post(
-                (Uri.parse("http://169.254.209.151:40222/lyrics")),
+                (Uri.parse("http://192.168.131.80:40222/lyrics")),
                 body: json.encode({'feelings': widget.text}));
             final response1 = await http.post(
-                (Uri.parse("http://169.254.209.151:40222/music")),
+                (Uri.parse("http://192.168.131.80:40222/music")),
                 body: json.encode({'feelings': widget.text}));
             setState(() {
               isSelected = !isSelected;
@@ -702,6 +709,7 @@ class _CustomeSelectedState extends State<CustomeSelected> {
             });
             setState(() {
               widget.showSpinner = false;
+              ChooseGenre.seeResult=true;
             });
           }
           catch(e){

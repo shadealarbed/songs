@@ -105,11 +105,9 @@ class _AlbumArtState extends State<AlbumArt> with TickerProviderStateMixin {
                     FlatButton(
                         onPressed: () async {
                           final response = await http.get(Uri.parse(
-                              "http://169.254.209.151:40222/lyrics"));
+                              "http://192.168.131.80:40222/lyrics"));
                           final decoded = json.decode(response.body)
                               as Map<String, dynamic>;
-
-
                           setState(() {
                             _controller.forward();
                             lyrics = decoded['feelings'];
@@ -119,7 +117,7 @@ class _AlbumArtState extends State<AlbumArt> with TickerProviderStateMixin {
                         },
                         child: Container(
                             height: 20,
-                            width: 80,
+                            width: 100,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: Colors.grey.withOpacity(0.5)),

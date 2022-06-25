@@ -14,6 +14,7 @@ import 'package:senior_demo/pages/choosegenre.dart';
 
 class MyAudio extends ChangeNotifier{
 
+
   Duration? totalDuration;
   Duration? position;
   String? audioState;
@@ -23,14 +24,16 @@ class MyAudio extends ChangeNotifier{
     initAudio();
   }
 
-  AudioPlayer audioPlayer = AudioPlayer();
-  AudioPlayer audioPlayer1 = AudioPlayer();
+  static AudioPlayer audioPlayer = AudioPlayer();
+  static AudioPlayer audioPlayer1 = AudioPlayer();
 
   initAudio(){
     audioPlayer.onDurationChanged.listen((updatedDuration) {
         totalDuration = updatedDuration;
         notifyListeners();
         Songname = ChooseGenre.songName;
+
+
     });
     audioPlayer1.onDurationChanged.listen((updatedDuration) {
       totalDuration = updatedDuration;
@@ -78,6 +81,7 @@ class MyAudio extends ChangeNotifier{
    await audioPlayer.play(url.path, isLocal: true);
     await audioPlayer1.setUrl(url1.path,isLocal: true);
     await audioPlayer1.play(url1.path, isLocal: true);
+
     print(Songname);
 
   }
@@ -86,6 +90,7 @@ class MyAudio extends ChangeNotifier{
   pauseAudio(){
     audioPlayer.pause();
     audioPlayer1.pause();
+
   }
 
   stopAudio(){
